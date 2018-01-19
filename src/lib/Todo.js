@@ -9,8 +9,9 @@ function guidGenerator() {
   }
   
   export default class Todo {
-      constructor(descriptionText, isDone, id) {
+      constructor(descriptionText, todoDate, isDone, id) {
           this.descriptionText = descriptionText || '';
+          this.todoDate = todoDate || '';
           this.isDone = isDone || false;
           this.id = id || guidGenerator();
       }

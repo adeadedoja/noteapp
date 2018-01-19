@@ -6,8 +6,8 @@ export default class TodoDataInterface {
         this.todos = [];
     }
 
-    addTodo(descriptionText) {
-        const newTodo = new Todo(descriptionText);
+    addTodo(descriptionText, todoDate) {
+        const newTodo = new Todo(descriptionText, todoDate);
         this.todos.push(newTodo);
         return newTodo;
     }
