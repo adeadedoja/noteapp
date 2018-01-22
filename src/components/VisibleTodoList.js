@@ -5,9 +5,7 @@ export default class VisibleTodoList extends React.Component {
     render() {
         return (
             <div>
-            // visibilityFilter could be either of the following values:
-            // "ALL_TODOS", "LEFT_TODOS", or "COMPLETED_TODOS"
-            <h3>{this.props.visibilityFilter.replace("_", " ")}</h3>
+            {/*<h3>{this.props.visibilityFilter.replace("_", " ")}</h3>*/}
             {this.props.visibleTodos.length > 0?
                 (
                     <ul>

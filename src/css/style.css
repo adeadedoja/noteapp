@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600');
+body {background-color:#f2f2f2; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 500; }
+p {color: #aaa;}
+.bold {color: #555;}
+#app {background-color: #fff; border-radius: 5px;}
+.topMenu {padding: 1rem 3rem; border-bottom: #eee solid 1px;}
+.col {color: #fe2e50;}
+.bold1 {font-weight: 500;}
+.bold2 {font-weight: 600;}
+.pad {padding: 3rem;}
+.rightpad {border-left:#eee solid 1px;}
+#calendar {
+    width: 640px;
+    height: 480px;
+    margin: 100px auto;
+  }
+  
+  .Calendar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .Calendar-header {
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    display: flex;
+    font-size: 16px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    justify-content: space-between;
+  }
+  
+  .Calendar-header button {
+    width: 50px;
+    font-size: 20px;
+    border: 0;
+    background: transparent;
+    color: #ddd;
+    cursor: pointer;
+  }
+  
+  .Calendar-grid-item {
+    flex: 0 14.28571%;
+    text-align: center;
+    font-weight: 600;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .Calendar-grid-item--current {
+    font-weight: 700;
+    background-color: #fe2e50;
+    color: #fff;
+  }
+  
+  .Calendar-grid-item.nextMonth,
+  .Calendar-grid-item.prevMonth {
+    color: #999;
+  }
