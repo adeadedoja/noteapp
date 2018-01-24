@@ -10,7 +10,8 @@ export default class TodoApp extends React.Component {
         this.state = {
             todos: this.props.dataInterface.getAllTodos(),
             visibilityFilter: "ALL_TODOS",
-            date: moment()
+            date: moment(),
+            showing: false
         };
     }
 
@@ -53,7 +54,8 @@ export default class TodoApp extends React.Component {
     render() {
 
         let visibleTodos = this.visibleTodos();
-
+        const { showing } = this.state;
+        
         return (
             <div>
                 <div className="topMenu">
@@ -72,11 +74,24 @@ export default class TodoApp extends React.Component {
                             />
                         </div>
                         <div className="col-md-6 pad rightpad">                          
-                        
-                            <div className="row">
+                            <div className="pb-4">                                
+                                {
+                                    this.visibilityFilters.map(
+                                        visibilityFilter =>
+                                            <button 
+                                                className="newbutton"
+                                                key={visibilityFilter} 
+                                                onClick={this.changeVisibilityFilter} 
+                                                data-id={visibilityFilter}>
+                                                    {visibilityFilter.replace("_", " ")}
+                                            </button>
+                                    )
+                                }
+                            </div>         
+                            <div className="row pb-1">
                                 <div className="col-1"><h1 className="m-0 p-0">{this.state.date.format('DD')}</h1></div>
                                 <div className="col-8 ml-3 mt-1">
-                                    <p className="m-0 p-0 bold">{this.state.date.format('dddd')}</p>
+                                    <p className="m-0 p-0 bold dark">{this.state.date.format('dddd')}</p>
                                     <p className="m-0 p-0">{this.state.date.format('MMMM')}, {this.state.date.format('YYYY')}</p>
                                 </div>
                                 <div className="col-3"></div>
@@ -87,32 +102,24 @@ export default class TodoApp extends React.Component {
                                 archiveToggleTodo={this.archiveToggleTodo}
                                 removeTodo={this.removeTodo}
                             />
-                            <div>
-                                SHOW:
-                                {
-                                    this.visibilityFilters.map(
-                                        visibilityFilter =>
-                                            <button 
-                                                key={visibilityFilter} 
-                                                onClick={this.changeVisibilityFilter} 
-                                                data-id={visibilityFilter}>
-                                                    {visibilityFilter.replace("_", " ")}
-                                            </button>
-                                    )
-                                }
-                            </div>                        
-                            <input
-                                type="text"
-                                placeholder="What do you want todo?"
-                                ref={(c => this._todoInputField = c)}
-                            />
-                            <input
-                                type="datetime-local"
-                                placeholder="What do you want todo2?"
-                                ref={(c => this._todoInputField2 = c)}
-                            />
-                            <button onClick={this.addTodo}>Add Todo</button>
+                              
                             
+                            <button className="btn btn-block btn-pink" onClick={() => this.setState({ showing: !showing })}>Add New Task</button>             
+                            <div className="pt-2 pb-2" style={{ display: (showing ? 'block' : 'none') }} >
+                                <textarea
+                                    className="form-control pb-1"
+                                    type="text"
+                                    placeholder="What do you want todo?"
+                                    ref={(c => this._todoInputField = c)}
+                                />
+                                <input
+                                    className="form-control mt-1"
+                                    type="datetime-local"
+                                    placeholder="What do you want todo2?"
+                                    ref={(c => this._todoInputField2 = c)}
+                                />
+                                <button className="btn btn-primary btn-sm mt-1" onClick={this.addTodo}>Add Todo</button>
+                            </div>
                         </div>
                     </div>
                 </div>

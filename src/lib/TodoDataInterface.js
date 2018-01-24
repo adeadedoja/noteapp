@@ -4,6 +4,8 @@ import { findIndex } from 'lodash';
 export default class TodoDataInterface {
     constructor() {
         this.todos = [];
+        this.addTodo("Call Dami", "2018-01-01T01:00");
+        this.addTodo("Tell Dami to go to school", "2018-01-01T01:00");
     }
 
     addTodo(descriptionText, todoDate) {

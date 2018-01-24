@@ -8,7 +8,7 @@ export default class VisibleTodoList extends React.Component {
             {/*<h3>{this.props.visibilityFilter.replace("_", " ")}</h3>*/}
             {this.props.visibleTodos.length > 0?
                 (
-                    <ul>
+                    <ul className="pt-1 listnew">
                         {this.props.visibleTodos.map(
                             (todo) =>
                                 <SingleTodo
