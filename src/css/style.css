@@ -4,13 +4,13 @@ p {color: #ccc;}
 li {color: #aaa; border-bottom:#eee solid 1px;}
 .dark {color: #555;}
 .bold  {font-weight: 700;}
-#app {background-color: #fff; border-radius: 5px;}
-.topMenu {padding: 1rem 3rem; border-bottom: #eee solid 1px;}
+#app {background:url(../img/cl.jpg) top center; border-radius: 5px;}
+.topMenu {padding: 1rem 3rem; border-bottom: #fff solid 1px;}
 .col {color: #fe2e50;}
 .bold1 {font-weight: 500;}
 .bold2 {font-weight: 600;}
 .pad {padding: 3rem;}
-.rightpad {border-left:#eee solid 1px;}
+.rightpad {border-left:#fff solid 1px;}
 #calendar {
     width: 640px;
     height: 480px;
@@ -73,3 +73,18 @@ li {color: #aaa; border-bottom:#eee solid 1px;}
     border-color: #fe2e50;
 }
 .form-control {border-radius: 0px;}
+#checkbox {
+  width: 2em;
+  height: 2em;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#checkbox:checked {
+  background-color: #fe2e50;
+}

@@ -2,7 +2,9 @@ import React from 'react';
 import VisibleTodoList from './VisibleTodoList';
 import { Calendar } from 'react-calendar-component';
 import moment from 'moment';
-
+import cx from 'classnames';
+import FontAwesome from 'react-fontawesome';
+import logo from '.././img/logo.png'
 export default class TodoApp extends React.Component {
     constructor(props) {
         super(props);
@@ -10,15 +12,18 @@ export default class TodoApp extends React.Component {
         this.state = {
             todos: this.props.dataInterface.getAllTodos(),
             visibilityFilter: "ALL_TODOS",
+            today: moment(),
             date: moment(),
             showing: false
         };
+        this.date = moment();
     }
 
     addTodo = () => {
         if (this._todoInputField.value) {
             this.props.dataInterface.addTodo(this._todoInputField.value,this._todoInputField2.value);
             this.setState({todos: this.props.dataInterface.getAllTodos()});
+            this.setState({date:  moment(this._todoInputField2.value)});
             this._todoInputField.value = '';
             this._todoInputField2.value = '';
         }
@@ -27,15 +32,29 @@ export default class TodoApp extends React.Component {
     archiveToggleTodo = e => {
         this.props.dataInterface.archiveToggleTodo(e.target.dataset.id);
         this.setState({todos: this.props.dataInterface.getAllTodos()});
+        this.setState({date:  this.props.dataInterface.getTodoDate(e.target.dataset.id)});
     }
 
     removeTodo = e => {
         this.props.dataInterface.removeTodo(e.target.dataset.id);
         this.setState({todos: this.props.dataInterface.getAllTodos()});
+        localStorage.setItem('curdate', JSON.stringify(this.date));
+        this.setState({date:  moment(JSON.parse(localStorage.getItem('curdate') || '{}'))});
     }
 
     changeVisibilityFilter = e => {
+        const dd = this.state.date;
         this.setState({visibilityFilter: e.target.dataset.id});
+        this.setState({date:  this.state.date});
+        console.log(dd);
+    }
+
+    changeShowing = e => {        
+        const { showing } = this.state;
+        //const { date } = this.date;
+        localStorage.setItem('curdate', JSON.stringify(this.date));
+        this.setState({ showing: !showing });
+        this.setState({date:  moment(JSON.parse(localStorage.getItem('curdate') || '{}'))});
     }
 
     visibleTodos = () => {
@@ -51,17 +70,35 @@ export default class TodoApp extends React.Component {
         }
     }
 
+    changeDate = () => {
+
+    }
+
+    filterTodos = () => {
+        return this.visibleTodos().filter(todo => todo.day === this.state.date.format('DD'));
+    }
+
     render() {
 
         let visibleTodos = this.visibleTodos();
+        let filterTodos = this.filterTodos();
         const { showing } = this.state;
         
         return (
             <div>
                 <div className="topMenu">
                     <div className="row">
-                        <div className="col-md-6 "><a className="bold2">Se</a></div>
-                        <div className="col-md-6 text-right">dd</div>
+                        <div className="col-md-6 "><img src={logo} /></div>
+                        <div className="col-md-6 text-right">
+                        <FontAwesome
+                        className='super-crazy-colors'
+                        name='cog'
+                        size='2x'
+                        spin
+                        style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                      />
+                
+                        </div>
                     </div>
                 </div>
                 <div className="cont">
@@ -71,10 +108,11 @@ export default class TodoApp extends React.Component {
                                 onChangeMonth={date => this.setState({ date })}
                                 date={this.state.date}
                                 onPickDate={date => this.setState({ date })}
+                                
                             />
                         </div>
                         <div className="col-md-6 pad rightpad">                          
-                            <div className="pb-4">                                
+                           {/* <div className="pb-4">                                
                                 {
                                     this.visibilityFilters.map(
                                         visibilityFilter =>
@@ -87,24 +125,24 @@ export default class TodoApp extends React.Component {
                                             </button>
                                     )
                                 }
-                            </div>         
-                            <div className="row pb-1">
-                                <div className="col-1"><h1 className="m-0 p-0">{this.state.date.format('DD')}</h1></div>
-                                <div className="col-8 ml-3 mt-1">
-                                    <p className="m-0 p-0 bold dark">{this.state.date.format('dddd')}</p>
-                                    <p className="m-0 p-0">{this.state.date.format('MMMM')}, {this.state.date.format('YYYY')}</p>
-                                </div>
-                                <div className="col-3"></div>
-                            </div>  
+                            </div>         */}
+                             <div className="row">
+                                    <div className="col-1"><h2 className="m-0 p-0">{this.state.date.format('DD')}</h2></div>
+                                    <div className="col-8 ml-1 mt-0">
+                                        <p className="m-0 p-0 bold dark">{this.state.date.format('dddd')}</p>
+                                        <p className="m-0 p-0">{this.state.date.format('MMMM')}, {this.state.date.format('YYYY')}</p>
+                                    </div>
+                                    <div className="col-3"></div>
+                                </div> 
                             <VisibleTodoList
-                                visibleTodos={visibleTodos}
+                                visibleTodos={filterTodos}
                                 visibilityFilter = {this.state.visibilityFilter}
                                 archiveToggleTodo={this.archiveToggleTodo}
                                 removeTodo={this.removeTodo}
                             />
                               
                             
-                            <button className="btn btn-block btn-pink" onClick={() => this.setState({ showing: !showing })}>Add New Task</button>             
+                            <button className="btn btn-block btn-pink" onClick={this.changeShowing}>Add New Task</button>             
                             <div className="pt-2 pb-2" style={{ display: (showing ? 'block' : 'none') }} >
                                 <textarea
                                     className="form-control pb-1"

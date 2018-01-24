@@ -1,12 +1,11 @@
 import Todo from './Todo';
 import { findIndex } from 'lodash';
-import moment from 'moment';
 
 export default class TodoDataInterface {
     constructor() {
         this.todos = [];
-        this.addTodo("Call Dami",moment());
-        this.addTodo("Tell Dami to go to school", moment());
+        this.addTodo("Call Dami", "2018-01-01T01:00");
+        this.addTodo("Tell Dami to go to school", "2018-01-01T01:00");
     }
 
     addTodo(descriptionText, todoDate) {
@@ -36,6 +35,6 @@ export default class TodoDataInterface {
     
     getTodoDate(todoId) {
         const todoIndex = findIndex(this.todos, (todo) => todo.id === todoId);
-        return moment(this.todos[todoIndex].todoDate);
+        return this.todos[todoIndex];
     }
 }

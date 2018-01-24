@@ -53,6 +53,7 @@
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-dom": "^16.2.0",
+    "react-fontawesome": "^1.6.1",
     "tether": "^1.4.3"
   }
 }
